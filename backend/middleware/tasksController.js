@@ -3,10 +3,14 @@ let ID_COUNTER = 0;
 const PRIORITY_LEVELS = ["low", "medium", "high"];
 
 exports.getAllTasks = (req, res) => {
+  const filteredTasks = TASKS.filter((task) => {
+    if (req.query.completed === undefined) return true;
+    return task.completed === (req.query.completed === "true");
+  });
   res.status(200).json({
     status: "success",
     data: {
-      tasks: TASKS,
+      tasks: filteredTasks,
     },
   });
 };

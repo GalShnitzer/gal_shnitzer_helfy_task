@@ -1,0 +1,205 @@
+/* ── Card ──────────────────────────────────────────── */
+.card {
+  min-width: 280px;
+  border-radius: 16px;
+  padding: 20px 24px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  opacity: 1;
+  transition:
+    opacity 0.2s,
+    border 0.2s;
+}
+
+.card.completed {
+  border-color: rgba(29, 209, 161, 0.4);
+  opacity: 0.7;
+}
+
+/* Status backgrounds */
+.card.status-todo {
+  background: #f0f0ff;
+}
+.card.status-in-progress {
+  background: #e8e8ff;
+}
+.card.status-done {
+  background: #e8fff5;
+}
+
+.card-status {
+  color: #555;
+}
+/* ── Priority dot ──────────────────────────────────── */
+.priority-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-bottom: 14px;
+}
+
+.priority-dot.high {
+  background: #f30d0d;
+}
+.priority-dot.medium {
+  background: #e7ab1e;
+}
+.priority-dot.low {
+  background: #1dd1a1;
+}
+
+/* ── Title ─────────────────────────────────────────── */
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  line-height: 1.4;
+  color: #0a0909;
+}
+
+.card-title.completed {
+  text-decoration: line-through;
+}
+
+/* ── Description ───────────────────────────────────── */
+.card-description {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+/* ── Status + Priority row ─────────────────────────── */
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.card-status {
+  color: #666;
+}
+
+.card-priority {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-priority.high {
+  color: #f30d0d;
+}
+.card-priority.medium {
+  color: #e7ab1e;
+}
+.card-priority.low {
+  color: #1dd1a1;
+}
+
+/* ── Actions row ───────────────────────────────────── */
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #666;
+}
+
+.toggle-label input[type="checkbox"] {
+  accent-color: #1dd1a1;
+  cursor: pointer;
+}
+
+.card-buttons {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* ── Buttons ───────────────────────────────────────── */
+.btn {
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background: #54a0ff;
+}
+.btn-delete {
+  background: #ff4d4d;
+}
+.btn-save {
+  background: #54a0ff;
+}
+.btn-cancel {
+  background: #555;
+}
+
+/* ── Form overlay ──────────────────────────────────── */
+.form-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.form {
+  background: #1a1a2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form h3 {
+  margin: 0 0 16px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.form-label {
+  font-size: 12px;
+  color: #888;
+  margin-top: 8px;
+}
+
+.form-input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0a0a1a;
+  color: #fff;
+  font-size: 13px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-input.textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
