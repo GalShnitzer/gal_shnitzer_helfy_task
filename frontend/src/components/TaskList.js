@@ -39,7 +39,7 @@ export default function TaskList({
 
   return (
     <InfiniteCarousel
-      tasks={sortedTasks}
+      items={sortedTasks}
       paused={isPaused}
       renderItem={(task) => (
         <TaskItem

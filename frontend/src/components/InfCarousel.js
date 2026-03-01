@@ -4,22 +4,24 @@ const CARD_WIDTH = 280;
 const CARD_GAP = 20;
 
 export default function InfiniteCarousel({
-  tasks = [],
+  items = [],
   renderItem,
   speed = 0.5,
   cardWidth = CARD_WIDTH,
   paused = false,
 }) {
   const step = cardWidth + CARD_GAP;
-  const doubled = [...tasks, ...tasks]; // double for infinite loop
-  const segment = tasks.length * step; // width of one copy
+  const totalWidth = items.length * step;
+  const shouldDuplicate = totalWidth < window.innerWidth * 2;
+  const displayItems = shouldDuplicate ? [...items, ...items] : items;
+  const segment = items.length * step;
 
   const [offset, setOffset] = useState(0);
   const isPaused = useRef(false);
   const animRef = useRef(null);
 
   useEffect(() => {
-    if (!tasks.length) return;
+    if (!items.length) return;
     let prev = performance.now();
 
     function tick(now) {
@@ -27,7 +29,7 @@ export default function InfiniteCarousel({
         const delta = now - prev;
         setOffset((o) => {
           let next = o + speed * (delta / 16);
-          if (next >= segment) next -= segment; // silent snap
+          if (next >= segment) next -= segment;
           return next;
         });
       }
@@ -37,7 +39,7 @@ export default function InfiniteCarousel({
 
     animRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animRef.current);
-  }, [segment, speed, tasks.length, paused]);
+  }, [segment, speed, items.length, paused]);
 
   return (
     <div
@@ -50,11 +52,9 @@ export default function InfiniteCarousel({
       onMouseEnter={() => (isPaused.current = true)}
       onMouseLeave={() => (isPaused.current = false)}
     >
-      {/* Fade edges */}
       <div style={fadeStyle("right")} />
       <div style={fadeStyle("left")} />
 
-      {/* Scrolling track */}
       <div
         style={{
           display: "flex",
@@ -64,7 +64,7 @@ export default function InfiniteCarousel({
           transform: `translateX(-${offset}px)`,
         }}
       >
-        {doubled.map((item, i) => (
+        {displayItems.map((item, i) => (
           <div key={i} style={{ minWidth: cardWidth }}>
             {renderItem(item)}
           </div>

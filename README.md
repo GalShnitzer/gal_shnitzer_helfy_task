@@ -14,7 +14,7 @@
 
 ## API Endpoints
 
-- GET /api/tasks
+- GET /api/tasks (supports `?completed=true` or `?completed=false` to filter by status)
 - POST /api/tasks
 - PUT /api/tasks/:id
 - DELETE /api/tasks/:id
