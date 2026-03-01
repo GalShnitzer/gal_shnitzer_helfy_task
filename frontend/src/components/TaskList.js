@@ -6,6 +6,8 @@ export default function TaskList({
   onEditTask,
   onDeleteTask,
   onToggleTask,
+  onOpenEdit,
+  isPaused = false,
 }) {
   // Only use carousel if there are 3+ tasks, otherwise use simple flex layout
   if (sortedTasks.length < 3) {
@@ -26,6 +28,8 @@ export default function TaskList({
               onEditTask={onEditTask}
               onDeleteTask={onDeleteTask}
               onToggleTask={onToggleTask}
+              onOpenEdit={onOpenEdit}
+              isEditing={isPaused}
             />
           </div>
         ))}
@@ -36,12 +40,15 @@ export default function TaskList({
   return (
     <InfiniteCarousel
       tasks={sortedTasks}
+      paused={isPaused}
       renderItem={(task) => (
         <TaskItem
           task={task}
           onEditTask={onEditTask}
           onDeleteTask={onDeleteTask}
           onToggleTask={onToggleTask}
+          onOpenEdit={onOpenEdit}
+          isEditing={isPaused}
         />
       )}
     />

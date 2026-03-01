@@ -1,15 +1,14 @@
 import { useState } from "react";
 import "./TaskItem.css";
-import TaskForm from "./TaskForm";
 
 export default function TaskItem({
   task,
   onEditTask,
   onDeleteTask,
   onToggleTask,
+  onOpenEdit,
+  isEditing = false,
 }) {
-  const [showEditForm, setShowEditForm] = useState(false);
-
   const statusClass =
     {
       Todo: "status-todo",
@@ -18,11 +17,6 @@ export default function TaskItem({
     }[task.status] ?? "";
 
   const priorityClass = task.priority;
-
-  function handleEdit(updatedFields) {
-    onEditTask({ ...task, ...updatedFields });
-    setShowEditForm(false);
-  }
 
   return (
     <>
@@ -59,7 +53,8 @@ export default function TaskItem({
           <div className="card-buttons">
             <button
               className="btn btn-edit"
-              onClick={() => setShowEditForm(true)}
+              onClick={() => !isEditing && onOpenEdit(task)}
+              disabled={isEditing}
             >
               Edit
             </button>
@@ -72,16 +67,6 @@ export default function TaskItem({
           </div>
         </div>
       </div>
-
-      <TaskForm
-        key={showEditForm ? task.id : `${task.id}-closed`}
-        open={showEditForm}
-        initialState={task}
-        formTitle="Edit Task"
-        buttonText="Save Changes"
-        onSubmit={handleEdit}
-        onClose={() => setShowEditForm(false)}
-      />
     </>
   );
 }

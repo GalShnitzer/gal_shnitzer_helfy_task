@@ -148,6 +148,11 @@
   background: #555;
 }
 
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* ── Form overlay ──────────────────────────────────── */
 .form-overlay {
   position: fixed;

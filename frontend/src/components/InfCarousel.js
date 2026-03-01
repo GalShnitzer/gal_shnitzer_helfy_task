@@ -8,6 +8,7 @@ export default function InfiniteCarousel({
   renderItem,
   speed = 0.5,
   cardWidth = CARD_WIDTH,
+  paused = false,
 }) {
   const step = cardWidth + CARD_GAP;
   const doubled = [...tasks, ...tasks]; // double for infinite loop
@@ -22,7 +23,7 @@ export default function InfiniteCarousel({
     let prev = performance.now();
 
     function tick(now) {
-      if (!isPaused.current) {
+      if (!isPaused.current && !paused) {
         const delta = now - prev;
         setOffset((o) => {
           let next = o + speed * (delta / 16);
@@ -36,7 +37,7 @@ export default function InfiniteCarousel({
 
     animRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(animRef.current);
-  }, [segment, speed, tasks.length]);
+  }, [segment, speed, tasks.length, paused]);
 
   return (
     <div

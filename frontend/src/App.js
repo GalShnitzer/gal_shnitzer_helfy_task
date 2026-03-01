@@ -20,6 +20,8 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("all");
   const [editTask, setEditTask] = useState(null);
+  const [taskToEdit, setTaskToEdit] = useState(null);
+  const [showEditForm, setShowEditForm] = useState(false);
   const [deleteTask, setDeleteTask] = useState(null);
   const [toggleTaskId, setToggleTaskId] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
@@ -175,8 +177,15 @@ export default function App() {
     setDeleteTask(task);
   }
 
-  function handleEditTask(task) {
-    setEditTask(task);
+  function handleOpenEdit(task) {
+    setTaskToEdit(task);
+    setShowEditForm(true);
+  }
+
+  function handleEditTask(updatedFields) {
+    // Only set editTask when submitting, which triggers the API update
+    setEditTask({ ...taskToEdit, ...updatedFields });
+    setShowEditForm(false);
   }
 
   function handleAddTask() {
@@ -211,6 +220,8 @@ export default function App() {
           onEditTask={handleEditTask}
           onDeleteTask={handleDeleteTask}
           onToggleTask={setToggleTaskId}
+          onOpenEdit={handleOpenEdit}
+          isPaused={!!showEditForm}
         />
       )}
       <TaskForm
@@ -223,6 +234,20 @@ export default function App() {
         }}
         onClose={() => setShowAddForm(false)}
       />
+      {taskToEdit && (
+        <TaskForm
+          open={showEditForm}
+          initialState={taskToEdit}
+          formTitle="Edit Task"
+          buttonText="Save Changes"
+          onSubmit={handleEditTask}
+          onClose={() => {
+            setShowEditForm(false);
+            setTaskToEdit(null);
+            setEditTask(null);
+          }}
+        />
+      )}
       <Modal open={!!error} title="Error" onClose={() => setError(null)}>
         <Message message={`App Error😣: ${error}`} />
       </Modal>
