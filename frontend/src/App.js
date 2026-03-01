@@ -207,10 +207,18 @@ export default function App() {
         }}
       />
       <Header />
-      <AddTaskButton onClick={handleAddTask} />
-      <TaskFilter filter={filter} setFilter={setFilter} />
+      <Buttons>
+        <AddTaskButton onClick={handleAddTask} />
+        <TaskFilter filter={filter} setFilter={setFilter} />
+      </Buttons>
       {taskLength === 0 && !loading && (
-        <Message message="You have no tasks!💪🏻 add new☝🏻" />
+        <Message
+          message={
+            filter === "all"
+              ? "You have no tasks!💪🏻 add new☝🏻"
+              : `No ${filter} tasks`
+          }
+        />
       )}
       {loading ? (
         <Loader />
@@ -249,8 +257,23 @@ export default function App() {
         />
       )}
       <Modal open={!!error} title="Error" onClose={() => setError(null)}>
-        <Message message={`App Error😣: ${error}`} />
+        <Message message={`App Error😣: ${error}`} error={true} />
       </Modal>
+    </div>
+  );
+}
+
+function Buttons({ children }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        gap: "10px",
+        marginTop: "20px",
+        padding: "0 20px",
+      }}
+    >
+      {children}
     </div>
   );
 }
