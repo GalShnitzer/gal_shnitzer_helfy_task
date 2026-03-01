@@ -1,5 +1,7 @@
 # Task Manager App
 
+![Task Manager Screenshot](./screenshot.png)
+
 ## Backend Setup
 
 1. cd backend
